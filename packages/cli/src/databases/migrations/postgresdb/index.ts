@@ -43,7 +43,7 @@ import { RemoveResetPasswordColumns1690000000030 } from '../common/1690000000030
 import { AddMissingPrimaryKeyOnExecutionData1690787606731 } from './1690787606731-AddMissingPrimaryKeyOnExecutionData';
 import { CreateWorkflowNameIndex1691088862123 } from '../common/1691088862123-CreateWorkflowNameIndex';
 import { AddMfaColumns1690000000030 } from './../common/1690000000040-AddMfaColumns';
-import { MigrateToTimestampZ1692207852593 } from './1692207852593-MigrateToTimestampZ1692207852593';
+import { MigrateToTimestampTz1692207852593 } from './1692207852593-MigrateToTimestampTz';
 
 export const postgresMigrations: Migration[] = [
 	InitialMigration1587669153312,
@@ -90,5 +90,5 @@ export const postgresMigrations: Migration[] = [
 	AddMissingPrimaryKeyOnExecutionData1690787606731,
 	CreateWorkflowNameIndex1691088862123,
 	AddMfaColumns1690000000030,
-	MigrateToTimestampZ1692207852593,
+	MigrateToTimestampTz1692207852593,
 ];
