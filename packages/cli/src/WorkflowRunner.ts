@@ -645,7 +645,11 @@ export class WorkflowRunner {
 	): Promise<string> {
 		const workflowId = data.workflowData.id;
 		let startedAt = new Date();
-		const subprocess = fork(pathJoin(__dirname, 'WorkflowRunnerProcess.js'));
+		const subprocess = fork(pathJoin(__dirname, 'WorkflowRunnerProcess.js'), {
+			env: {
+				NODE_OPTIONS: '--max-old-space-size=500',
+			},
+		});
 
 		if (loadStaticData === true && workflowId) {
 			data.workflowData.staticData = await WorkflowHelpers.getStaticDataById(workflowId);
