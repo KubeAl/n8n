@@ -647,6 +647,7 @@ export class WorkflowRunner {
 		let startedAt = new Date();
 		const subprocess = fork(pathJoin(__dirname, 'WorkflowRunnerProcess.js'), {
 			env: {
+				...process.env,
 				NODE_OPTIONS: '--max-old-space-size=500',
 			},
 		});
