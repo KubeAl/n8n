@@ -9,6 +9,8 @@ import type { CredentialsHelper } from '@/CredentialsHelper';
 import type { ICredentialsDb, IExternalHooksClass } from '@/Interfaces';
 import type { OAuthRequest } from '@/requests';
 import { BadRequestError, NotFoundError } from '@/ResponseHelper';
+import { mockInstance } from '../../integration/shared/utils';
+import { SecretsHelper } from '@/SecretsHelpers';
 
 jest.mock('crypto-js', () => ({
 	AES: {
@@ -48,6 +50,8 @@ describe('OAuth2CredentialController', () => {
 		credentialsRepository,
 		sharedCredentialsRepository,
 	);
+
+	mockInstance(SecretsHelper);
 
 	const user = mock<User>({
 		id: '123',

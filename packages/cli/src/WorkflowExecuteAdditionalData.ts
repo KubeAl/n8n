@@ -67,6 +67,7 @@ import { ExecutionRepository } from '@db/repositories';
 import { EventsService } from '@/services/events.service';
 import { SecretsHelper } from './SecretsHelpers';
 import { OwnershipService } from './services/ownership.service';
+import { isVariablesEnabled } from './environments/variables/enviromentHelpers';
 
 const ERROR_TRIGGER_TYPE = config.getEnv('nodes.errorTriggerType');
 
@@ -1148,10 +1149,8 @@ export async function getBase(
 	const webhookWaitingBaseUrl = urlBaseWebhook + config.getEnv('endpoints.webhookWaiting');
 	const webhookTestBaseUrl = urlBaseWebhook + config.getEnv('endpoints.webhookTest');
 
-	const [encryptionKey, variables] = await Promise.all([
-		UserSettings.getEncryptionKey(),
-		WorkflowHelpers.getVariables(),
-	]);
+	const encryptionKey = await UserSettings.getEncryptionKey();
+	const variables = isVariablesEnabled() ? await WorkflowHelpers.getVariables() : {};
 
 	return {
 		credentialsHelper: new CredentialsHelper(encryptionKey),
