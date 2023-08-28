@@ -1,5 +1,5 @@
 import type { ColumnOptions } from 'typeorm';
-import { BeforeInsert, BeforeUpdate, Column, PrimaryColumn } from 'typeorm';
+import { BeforeInsert, CreateDateColumn, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 import config from '@/config';
 import { generateNanoId } from '../utils/generators';
 
@@ -40,16 +40,11 @@ function mixinStringId<T extends Constructor<{}>>(base: T) {
 
 function mixinTimestamps<T extends Constructor<{}>>(base: T) {
 	class Derived extends base {
-		@Column(tsColumnOptions)
+		@CreateDateColumn(tsColumnOptions)
 		createdAt: Date;
 
-		@Column(tsColumnOptions)
+		@UpdateDateColumn(tsColumnOptions)
 		updatedAt: Date;
-
-		@BeforeUpdate()
-		setUpdateDate(): void {
-			this.updatedAt = new Date();
-		}
 	}
 	return Derived;
 }
